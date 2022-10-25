@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+package api.solid.v1;
+
+option go_package = "hello-kratos/api/solid/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.solid.v1";
+
+import "validate/validate.proto";
+service SolidService {
+	rpc CreateSolid (CreateSolidRequest) returns (CreateSolidReply) {
+		option (google.api.http) = {
+			post: "/v1/solid"
+			body: "*"
+		};
+	};
+	rpc UpdateSolid (UpdateSolidRequest) returns (UpdateSolidReply) {
+		option (google.api.http) = {
+			put: "/v1/solid/{id}"
+			body: "*"
+		};
+	};
+	rpc DeleteSolid (DeleteSolidRequest) returns (DeleteSolidReply) {
+		option (google.api.http) = {
+			delete: "/v1/solid/{id}"
+		};
+	};
+	rpc GetSolid (GetSolidRequest) returns (GetSolidReply) {
+		option (google.api.http) = {
+			get: "/v1/solid/{id}"
+		};
+	};
+	rpc ListSolid (ListSolidRequest) returns (ListSolidReply) {
+		option (google.api.http) = {
+			get: "/v1/solid"
+		};
+	};
+}
+
+message Solid {
+	int64 id = 1;
+	string wechatName = 2;
+	string date = 3;
+}
+message CreateSolidRequest {
+	string wechatName = 1 [(validate.rules).string = {min_len: 1, max_len: 50}];
+	string date = 2 [(validate.rules).string.len = 10];
+}
+message CreateSolidReply {}
+
+message UpdateSolidRequest {}
+message UpdateSolidReply {}
+
+message DeleteSolidRequest {}
+message DeleteSolidReply {}
+
+message GetSolidRequest {}
+message GetSolidReply {}
+
+message ListSolidRequest {}
+message ListSolidReply {}
