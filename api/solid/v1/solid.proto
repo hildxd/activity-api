@@ -14,22 +14,22 @@ service SolidService {
 			body: "*"
 		};
 	};
-	rpc UpdateSolid (UpdateSolidRequest) returns (UpdateSolidReply) {
-		option (google.api.http) = {
-			put: "/v1/solid/{id}"
-			body: "*"
-		};
-	};
-	rpc DeleteSolid (DeleteSolidRequest) returns (DeleteSolidReply) {
-		option (google.api.http) = {
-			delete: "/v1/solid/{id}"
-		};
-	};
-	rpc GetSolid (GetSolidRequest) returns (GetSolidReply) {
-		option (google.api.http) = {
-			get: "/v1/solid/{id}"
-		};
-	};
+	// rpc UpdateSolid (UpdateSolidRequest) returns (UpdateSolidReply) {
+	// 	option (google.api.http) = {
+	// 		put: "/v1/solid/{id}"
+	// 		body: "*"
+	// 	};
+	// };
+	// rpc DeleteSolid (DeleteSolidRequest) returns (DeleteSolidReply) {
+	// 	option (google.api.http) = {
+	// 		delete: "/v1/solid/{id}"
+	// 	};
+	// };
+	// rpc GetSolid (GetSolidRequest) returns (GetSolidReply) {
+	// 	option (google.api.http) = {
+	// 		get: "/v1/solid/{id}"
+	// 	};
+	// };
 	rpc ListSolid (ListSolidRequest) returns (ListSolidReply) {
 		option (google.api.http) = {
 			get: "/v1/solid"
@@ -51,7 +51,7 @@ message CreateSolidReply {
 }
 
 message UpdateSolidRequest {
-	int64 id = 1 [(validate.rules).int64= {gt: 0}];
+	int64 id = 1 [(validate.rules).int64 = {gt: 0}];
 	string wechatName = 2 [(validate.rules).string = {min_len: 1, max_len: 50}];
 	string date = 3 [(validate.rules).string.len = 10];
 }
