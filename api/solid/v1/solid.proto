@@ -2,11 +2,11 @@ syntax = "proto3";
 
 package api.solid.v1;
 
-option go_package = "hello-kratos/api/solid/v1;v1";
-option java_multiple_files = true;
-option java_package = "api.solid.v1";
-
+import "google/api/annotations.proto";
 import "validate/validate.proto";
+
+option go_package = "activity-api/api/solid/v1;v1";
+
 service SolidService {
 	rpc CreateSolid (CreateSolidRequest) returns (CreateSolidReply) {
 		option (google.api.http) = {
@@ -46,16 +46,31 @@ message CreateSolidRequest {
 	string wechatName = 1 [(validate.rules).string = {min_len: 1, max_len: 50}];
 	string date = 2 [(validate.rules).string.len = 10];
 }
-message CreateSolidReply {}
+message CreateSolidReply {
+	Solid solid = 1;
+}
 
-message UpdateSolidRequest {}
+message UpdateSolidRequest {
+	int64 id = 1 [(validate.rules).int64= {gt: 0}];
+	string wechatName = 2 [(validate.rules).string = {min_len: 1, max_len: 50}];
+	string date = 3 [(validate.rules).string.len = 10];
+}
 message UpdateSolidReply {}
 
-message DeleteSolidRequest {}
+message DeleteSolidRequest {
+	int64 id = 1;
+}
 message DeleteSolidReply {}
 
-message GetSolidRequest {}
-message GetSolidReply {}
+message GetSolidRequest {
+int64 id = 1 [(validate.rules).int64= {gt: 0}];
+}
+message GetSolidReply {
+	Solid solid = 1;
+}
 
-message ListSolidRequest {}
-message ListSolidReply {}
+message ListSolidRequest {
+}
+message ListSolidReply {
+	repeated Solid list = 1;
+}

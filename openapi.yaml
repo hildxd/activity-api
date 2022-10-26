@@ -3,15 +3,13 @@
 
 openapi: 3.0.3
 info:
-    title: Greeter API
-    description: The greeting service definition.
+    title: ""
     version: 0.0.1
 paths:
     /helloworld/{name}:
         get:
             tags:
                 - Greeter
-                - subgroup
             description: Sends a greeting
             operationId: Greeter_SayHello
             parameters:
@@ -27,8 +25,148 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/helloworld.v1.HelloReply'
+    /v1/solid:
+        get:
+            tags:
+                - SolidService
+            operationId: SolidService_ListSolid
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.solid.v1.ListSolidReply'
+        post:
+            tags:
+                - SolidService
+            operationId: SolidService_CreateSolid
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.solid.v1.CreateSolidRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.solid.v1.CreateSolidReply'
+    /v1/solid/{id}:
+        get:
+            tags:
+                - SolidService
+            operationId: SolidService_GetSolid
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: int64
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.solid.v1.GetSolidReply'
+        put:
+            tags:
+                - SolidService
+            operationId: SolidService_UpdateSolid
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: int64
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.solid.v1.UpdateSolidRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.solid.v1.UpdateSolidReply'
+        delete:
+            tags:
+                - SolidService
+            operationId: SolidService_DeleteSolid
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: int64
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.solid.v1.DeleteSolidReply'
 components:
     schemas:
+        api.solid.v1.CreateSolidReply:
+            type: object
+            properties:
+                solid:
+                    $ref: '#/components/schemas/api.solid.v1.Solid'
+        api.solid.v1.CreateSolidRequest:
+            type: object
+            properties:
+                wechatName:
+                    type: string
+                date:
+                    type: string
+        api.solid.v1.DeleteSolidReply:
+            type: object
+            properties: {}
+        api.solid.v1.GetSolidReply:
+            type: object
+            properties:
+                solid:
+                    $ref: '#/components/schemas/api.solid.v1.Solid'
+        api.solid.v1.ListSolidReply:
+            type: object
+            properties:
+                list:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.solid.v1.Solid'
+        api.solid.v1.Solid:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    format: int64
+                wechatName:
+                    type: string
+                date:
+                    type: string
+        api.solid.v1.UpdateSolidReply:
+            type: object
+            properties: {}
+        api.solid.v1.UpdateSolidRequest:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    format: int64
+                wechatName:
+                    type: string
+                date:
+                    type: string
         helloworld.v1.HelloReply:
             type: object
             properties:
@@ -37,3 +175,5 @@ components:
             description: The response message containing the greetings
 tags:
     - name: Greeter
+      description: The greeting service definition.
+    - name: SolidService
