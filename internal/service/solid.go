@@ -11,12 +11,12 @@ func (s *SolidService) ListSolid(ctx context.Context, req *v1.ListSolidRequest) 
 	if err != nil {
 		return nil, err
 	}
-	solids := make([]*v1.Solid, len(rv))
+	solids := make([]*v1.Solid, 0)
 	for _, x := range rv {
 		solids = append(solids, &v1.Solid{
 			Id:         int64(x.ID),
 			WechatName: x.WechatName,
-			Date:       x.WechatName})
+			Date:       x.Date})
 	}
 	reply = &v1.ListSolidReply{
 		List: solids,
