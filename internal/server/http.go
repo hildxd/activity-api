@@ -9,6 +9,7 @@ import (
 	"github.com/go-kratos/kratos/v2/middleware/recovery"
 	"github.com/go-kratos/kratos/v2/middleware/validate"
 	"github.com/go-kratos/kratos/v2/transport/http"
+	"github.com/gorilla/handlers"
 )
 
 // NewHTTPServer new a HTTP server.
@@ -17,6 +18,13 @@ func NewHTTPServer(c *conf.Server, service *service.SolidService, logger log.Log
 		http.Middleware(
 			validate.Validator(),
 			recovery.Recovery(),
+		),
+		http.Filter(
+			handlers.CORS(
+				// handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"}),
+				handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "OPTIONS", "DELETE"}),
+				handlers.AllowedOrigins([]string{"*"}),
+			),
 		),
 	}
 	if c.Http.Network != "" {
