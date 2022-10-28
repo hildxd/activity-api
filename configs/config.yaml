@@ -3,4 +3,5 @@ port:
 name:
   abc
 mysql:
-  mysql
+  root:example@tcp(localhost:3306)/activity?charset=utf8mb4&parseTime=True&loc=Local
+  # root:dangerous@tcp(172.17.0.1:3306)/activity?charset=utf8mb4&parseTime=True&loc=Local
