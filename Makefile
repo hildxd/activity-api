@@ -55,16 +55,6 @@ generate:
 	go get github.com/google/wire/cmd/wire@latest
 	go generate ./...
 
-.PHONY: validate
-# generate validate proto
-validate:
-    protoc --proto_path=. \
-           --proto_path=./third_party \
-           --go_out=paths=source_relative:. \
-           --validate_out=paths=source_relative,lang=go:. \
-           $(API_PROTO_FILES)
-
-
 .PHONY: errors
 errors:
 	protoc --proto_path=. \

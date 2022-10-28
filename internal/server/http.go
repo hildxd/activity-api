@@ -21,7 +21,7 @@ func NewHTTPServer(c *conf.Server, service *service.SolidService, logger log.Log
 		),
 		http.Filter(
 			handlers.CORS(
-				// handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"}),
+				handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"}),
 				handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "OPTIONS", "DELETE"}),
 				handlers.AllowedOrigins([]string{"*"}),
 			),

@@ -8,7 +8,7 @@ server:
 data:
   database:
     driver: mysql
-    source: root:example@tcp(127.0.0.1:3306)/activity?charset=utf8mb4&parseTime=True&loc=Local
+    source: root:dangerous@tcp(172.17.0.1:3306)/activity?charset=utf8mb4&parseTime=True&loc=Local
   redis:
     addr: 127.0.0.1:6379
     read_timeout: 0.2s

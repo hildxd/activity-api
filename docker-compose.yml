@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  activity-api:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./configs:/data/conf
+    labels:
+      - traefik.http.routers.who.rule=Host(`api.hildxd.com`)
+      - traefik.http.routers.who.tls=true
+      - traefik.http.routers.who.tls.certresolver=le
+
+networks:
+  default:
+    name: traefik_default
